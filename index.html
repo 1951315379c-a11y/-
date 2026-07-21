@@ -92,7 +92,7 @@ img{max-width:100%;height:auto;display:block}
 .video-card{background:var(--white);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);transition:var(--transition);border:1px solid rgba(201,168,76,0.15)}
 .video-card:hover{transform:translateY(-8px);box-shadow:var(--shadow-lg)}
 .video-wrapper{position:relative;width:100%;padding-top:56.25%;background:var(--ink)}
-.video-wrapper video,.video-wrapper .video-placeholder,.video-wrapper iframe{position:absolute;top:0;left:0;width:100%;height:100%}.video-wrapper iframe{border:none}
+.video-wrapper video,.video-wrapper .video-placeholder,.video-wrapper iframe{position:absolute;top:0;left:0;width:100%;height:100%}.video-wrapper iframe{border:none}.bili-trigger{position:absolute;top:0;left:0;width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;background:linear-gradient(135deg,var(--ink),var(--red-dark));cursor:pointer;z-index:2;transition:background .3s}.bili-trigger:hover{background:linear-gradient(135deg,#2A1A1A,var(--red))}.bili-trigger i{font-size:3.5rem;color:rgba(255,255,255,0.9);opacity:.8;transition:transform .3s,opacity .3s}.bili-trigger:hover i{transform:scale(1.15);opacity:1}.bili-trigger::after{content:"点击播放";position:absolute;bottom:20%;color:rgba(255,255,255,0.6);font-size:.85rem;letter-spacing:.1em}
 .video-placeholder{display:flex;flex-direction:column;align-items:center;justify-content:center;background:linear-gradient(135deg,var(--ink),var(--red-dark));color:var(--white)}
 .video-placeholder i{font-size:3rem;margin-bottom:1rem;opacity:0.7}
 .video-placeholder span{font-size:0.9rem;opacity:0.7}
@@ -349,7 +349,7 @@ function renderGallery() {
   const photos = ['0aa5e6d1163c3324fc2281bd99fdceb2.jpg','0ef908b4293d34ec23e1fe0abd2a2356.jpg','1b7a05ad3b82859579815ab8fb071fc7.jpg','21c24242761e37e1acd0ad043f19ae07.jpg','41f989cf85f833ba3971e30b1d26cd2c.jpg','5af5571defa03e4b8ceebafbe721e78d.jpg','5d2d10ca4dbc0284fb7af469aeac3233.jpg','62a7498cbda155fda13621394be17543.jpg','763fb8626e34b70b8397e2f13dff96e5.jpg','769e89aee93a91bd70deb2e11145b50f.jpg','83bbd67213913d6892245ed9be66e51e.jpg','9826d97c9d1b23d4efb999d730d0a042.jpg','b3a56a7da295ac5a814686763a9f7fad.jpg','bcd2802070bfb01ab5dc1e658df23b65.jpg','f1c6c644d3c6029978241c769a660cf3.jpg'];
   photos.forEach(function(name){
     const item = document.createElement('div');item.className='gallery-item fade-up';const path='assets/photos/'+name;
-    item.innerHTML='<img src="'+path+'" alt="实地照片" loading="lazy"><div class="overlay"><i class="fas fa-camera" style="margin-right:4px;"></i>实地拍摄 · 红色足迹</div>';
+    var tp=path.replace('.jpg','_thumb.jpg');var i=document.createElement('img');i.src=tp;i.alt='实地照片';i.loading='lazy';i.style.cssText='width:100%;height:100%;object-fit:cover';i.onload=function(){this.classList.add('loaded')};item.innerHTML='';item.appendChild(i);item.innerHTML+='<div class="overlay"><i class="fas fa-camera" style="margin-right:4px;"></i>实地拍摄 · 红色足迹</div>';
     item.addEventListener('click',function(){openLightbox(path)});grid.appendChild(item);
   });
 }
@@ -398,7 +398,7 @@ function initNav() {
   });
 }
 
-function initVideos(){}
+function initVideos(){document.querySelectorAll(".bili-trigger").forEach(function(t){t.addEventListener("click",function(){var s=this.dataset.src;var ifr=document.createElement("iframe");ifr.src=s;ifr.setAttribute("frameborder","0");ifr.setAttribute("allowfullscreen","true");ifr.style.cssText="position:absolute;top:0;left:0;width:100%;height:100%;border:none";this.parentElement.appendChild(ifr);this.style.display="none"})})}
 
 document.addEventListener('DOMContentLoaded',function(){
   initNav();initInkCanvas();renderLocations();renderMapInfo();renderGallery();initScrollAnimations();initVideos();document.querySelectorAll('.map-loc').forEach(function(e,i){e.addEventListener('click',function(){window.location.href='details/detail.html?id='+(i+1)})});

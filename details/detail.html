@@ -151,7 +151,7 @@ function init() {
       if (entry && entry.images && entry.images.length > 0) {
         html += '<h2>实地影像</h2><div class="image-grid">';
         entry.images.forEach(function(imgName) {
-          html += '<img src="../assets/locations/' + imgName + '" alt="" loading="lazy" onclick="openLightbox(this.src)">';
+          html += '<img src="../assets/locations/' + imgName.replace(/\.[^.]+$/, '_thumb$&') + '" alt="" loading="lazy" onerror="' + 'this.src=' + String.fromCharCode(39) + '../assets/locations/' + imgName + String.fromCharCode(39) + '" onclick="' + 'openLightbox(' + String.fromCharCode(39) + '../assets/locations/' + imgName + String.fromCharCode(39) + ')">';
         });
         html += '</div>';
       }
