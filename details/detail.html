@@ -1,0 +1,180 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>点位详情 · 越地红色根脉</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700;900&family=Noto+Sans+SC:wght@300;400;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Noto Sans SC',sans-serif;background:#F5F0E8;color:#1A1A2E;line-height:1.9;min-height:100vh}
+:root{--red:#C41E3A;--red-dark:#8B0000;--gold:#C9A84C;--gold-light:#E8D48B;--ink:#1A1A2E;--paper:#F5F0E8;--paper-light:#FAF8F2;--shadow:0 4px 20px rgba(0,0,0,0.1);--radius:12px;--transition:all 0.4s ease}
+::selection{background:#C41E3A;color:#FFF}
+::-webkit-scrollbar{width:8px}
+::-webkit-scrollbar-track{background:#F5F0E8}
+::-webkit-scrollbar-thumb{background:#C9A84C;border-radius:4px}
+.top-bar{position:sticky;top:0;z-index:100;background:rgba(26,26,46,0.95);backdrop-filter:blur(12px);padding:0 2rem;display:flex;align-items:center;height:64px;border-bottom:2px solid var(--gold)}
+.top-bar a{color:var(--gold-light);text-decoration:none;display:flex;align-items:center;gap:10px;font-size:0.95rem;transition:var(--transition)}
+.top-bar a:hover{color:var(--gold)}
+.top-bar .brand{font-family:'Noto Serif SC',serif;font-size:1.1rem;color:var(--gold);margin-left:auto}
+.hero-sm{background:linear-gradient(135deg,var(--ink),var(--red-dark));padding:3rem 2rem;text-align:center}
+.hero-sm .badge{display:inline-block;padding:0.3rem 1.5rem;border:1px solid var(--gold);border-radius:50px;color:var(--gold-light);font-size:0.8rem;letter-spacing:0.2em;margin-bottom:1rem;background:rgba(0,0,0,0.3)}
+.hero-sm h1{font-family:'Noto Serif SC',serif;font-size:clamp(1.5rem,4vw,2.5rem);color:#FFF;text-shadow:0 2px 20px rgba(196,30,58,0.3)}
+.hero-sm .sub{color:rgba(255,255,255,0.7);margin-top:0.8rem;font-size:0.95rem}
+.container{max-width:850px;margin:0 auto;padding:2rem}
+.content-card{background:#FFF;border-radius:var(--radius);padding:2.5rem;box-shadow:var(--shadow);border:1px solid rgba(201,168,76,0.15)}
+.content-card h2{font-family:'Noto Serif SC',serif;font-size:1.4rem;color:var(--red);margin:2rem 0 1rem;padding-left:1rem;border-left:4px solid var(--gold);line-height:1.4}
+.content-card h2:first-child{margin-top:0}
+.content-card p{font-size:1rem;color:#3A3A4A;margin-bottom:1.2rem;text-indent:2em}
+.content-card p:last-child{margin-bottom:0}
+.content-card .core-tag{display:inline-block;padding:0.2rem 1rem;border-radius:50px;font-size:0.8rem;font-weight:600;margin-bottom:1rem}
+.content-card .core-tag.core{background:var(--red);color:#FFF}
+.content-card .core-tag.normal{background:var(--gold);color:var(--ink)}
+.image-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1rem;margin:1.5rem 0}
+.image-grid img{width:100%;border-radius:8px;box-shadow:var(--shadow);cursor:pointer;transition:var(--transition)}
+.image-grid img:hover{transform:scale(1.02);box-shadow:0 8px 30px rgba(0,0,0,0.15)}
+.loading{text-align:center;padding:4rem;color:var(--ink);opacity:0.6;font-size:1.1rem}
+.loading i{font-size:2rem;margin-bottom:1rem;display:block}
+.error{text-align:center;padding:4rem;color:var(--red)}
+.not-found{text-align:center;padding:4rem}
+.not-found i{font-size:3rem;color:var(--gold);margin-bottom:1rem;display:block}
+.not-found a{color:var(--red);text-decoration:underline}
+.lightbox{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.92);z-index:2000;display:none;align-items:center;justify-content:center;padding:2rem;cursor:zoom-out}
+.lightbox.active{display:flex}
+.lightbox img{max-width:90vw;max-height:90vh;border-radius:4px;object-fit:contain}
+@media(max-width:768px){
+  .container{padding:1rem}
+  .content-card{padding:1.5rem}
+  .top-bar{padding:0 1rem}
+  .image-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div class="top-bar">
+  <a href="index.html"><i class="fas fa-arrow-left"></i> 返回红色导览</a>
+  <span class="brand">越地红色根脉</span>
+</div>
+<div class="hero-sm">
+  <div class="badge" id="detailBadge">点位详情</div>
+  <h1 id="detailTitle">加载中...</h1>
+  <p class="sub" id="detailSub"></p>
+</div>
+<div class="container">
+  <div class="loading" id="loadingState">
+    <i class="fas fa-spinner fa-pulse"></i>
+    正在加载点位信息...
+  </div>
+  <div class="content-card" id="contentCard" style="display:none"></div>
+  <div class="error" id="errorState" style="display:none"></div>
+</div>
+<div class="lightbox" id="lightbox"><span class="lightbox-close" style="position:fixed;top:1.5rem;right:2rem;color:#FFF;font-size:2rem;cursor:pointer;opacity:0.7;z-index:2001" onclick="document.getElementById('lightbox').classList.remove('active')">&times;</span><img id="lightboxImg" src="" alt=""></div>
+
+<script>
+var LOCATIONS = [
+  {id:1,name:'越城区老城区',sub:'大通学堂 · 秋瑾故居 · 轩亭口',type:'core'},
+  {id:2,name:'鲁迅故里',sub:'越城区 · 鲁迅纪念馆 · 三味书屋 · 百草园',type:'core'},
+  {id:3,name:'俞秀松故居',sub:'诸暨市次坞镇 · 溪埭村',type:'normal'},
+  {id:4,name:'中共绍兴独立支部纪念馆',sub:'柯桥区 · 府山仓颉祠',type:'normal'},
+  {id:5,name:'梁柏台故居',sub:'新昌县',type:'normal'},
+  {id:6,name:'周恩来祖居（百岁堂）',sub:'越城区',type:'core'},
+  {id:7,name:'后堡抗日纪念堂',sub:'越城区',type:'normal'},
+  {id:8,name:'美人弄1号秘密情报站',sub:'上虞区小越街道 · 新宅村',type:'normal'},
+  {id:9,name:'许岙战斗纪念馆',sub:'上虞区岭南乡 · 许岙村',type:'normal'},
+  {id:10,name:'浙东新四军后勤基地',sub:'上虞区陈溪乡',type:'normal'},
+  {id:11,name:'观杰烈士事迹陈列馆',sub:'上虞区章镇',type:'normal'},
+  {id:12,name:'浙东人民解放军金萧支队纪念馆',sub:'诸暨 · 桐庐',type:'normal'}
+];
+
+function getParam(name) {
+  var url = new URL(window.location.href);
+  return url.searchParams.get(name);
+}
+
+function formatContent(text) {
+  // Convert docx text into HTML paragraphs
+  var parts = text.split(/\n\n+/);
+  var lines = [];
+  parts.forEach(function(block) {
+    block = block.trim();
+    if (!block) return;
+    // Check if it looks like a heading (starts with a Chinese numeral, or short line)
+    var isHeading = block.match(/^[一二三四五六七八九十]+[、.．]/) || 
+                    block.match(/^[（(][^)]+[)）]/) ||
+                    (block.length < 60 && (block.includes('关注') || block.includes('位置') || block.includes('概况')));
+    if (isHeading) {
+      lines.push('<h2>' + block + '</h2>');
+    } else {
+      lines.push('<p>' + block + '</p>');
+    }
+  });
+  return lines.join('\n');
+}
+
+function init() {
+  var id = parseInt(getParam('id'));
+  if (!id || id < 1 || id > 12) {
+    document.getElementById('loadingState').style.display = 'none';
+    document.getElementById('errorState').innerHTML = '<div class="not-found"><i class="fas fa-map-marked-alt"></i><h2>请指定有效的点位编号</h2><a href="index.html">返回首页</a></div>';
+    document.getElementById('errorState').style.display = 'block';
+    return;
+  }
+
+  var loc = LOCATIONS.find(function(l){return l.id===id});
+  if (!loc) return;
+
+  document.getElementById('detailBadge').textContent = (loc.type==='core'?'核心讲解点':'人文纪念点') + ' · 第' + id + '处';
+  document.getElementById('detailTitle').textContent = loc.name;
+  document.getElementById('detailSub').textContent = loc.sub;
+
+  // Fetch content from data.json
+  fetch('../details/data.json')
+    .then(function(r){return r.json()})
+    .then(function(data){
+      document.getElementById('loadingState').style.display = 'none';
+      var card = document.getElementById('contentCard');
+      var html = '';
+      
+      // Core/Normal tag
+      html += '<span class="core-tag ' + loc.type + '">' + (loc.type==='core'?'<i class="fas fa-star"></i> 核心讲解点':'<i class="fas fa-map-pin"></i> 人文纪念点') + '</span>';
+      
+      // Content text
+      var entry = data[String(id)];
+      if (entry && entry.content) {
+        html += formatContent(entry.content);
+      } else {
+        html += '<p style="text-indent:0">暂无详细文字资料。' + (loc.desc? '<br><br>' + loc.desc : '') + '</p>';
+      }
+
+      // Images
+      if (entry && entry.images && entry.images.length > 0) {
+        html += '<h2>实地影像</h2><div class="image-grid">';
+        entry.images.forEach(function(imgName) {
+          html += '<img src="../assets/locations/' + imgName + '" alt="" loading="lazy" onclick="openLightbox(this.src)">';
+        });
+        html += '</div>';
+      }
+      
+      card.innerHTML = html;
+      card.style.display = 'block';
+    })
+    .catch(function(err){
+      document.getElementById('loadingState').style.display = 'none';
+      document.getElementById('errorState').innerHTML = '<div class="not-found"><i class="fas fa-exclamation-triangle"></i><h2>数据加载失败</h2><p style="color:var(--ink);opacity:0.7;margin:1rem 0">' + err.message + '</p><a href="index.html">返回首页</a></div>';
+      document.getElementById('errorState').style.display = 'block';
+    });
+}
+
+function openLightbox(src) {
+  document.getElementById('lightboxImg').src = src;
+  document.getElementById('lightbox').classList.add('active');
+}
+document.getElementById('lightbox').addEventListener('click', function(e) {
+  if (e.target === this) this.classList.remove('active');
+});
+
+document.addEventListener('DOMContentLoaded', init);
+</script>
+</body>
+</html>

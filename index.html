@@ -1,0 +1,413 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>寻越地红色根脉 · 传承庚戊红色薪火</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700;900&family=Noto+Sans+SC:wght@300;400;700&display=swap" rel="stylesheet" />
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Noto Sans SC',sans-serif;background:#F5F0E8;color:#1A1A2E;overflow-x:hidden;line-height:1.8}
+a{text-decoration:none;color:inherit}
+img{max-width:100%;height:auto;display:block}
+::selection{background:#C41E3A;color:#FFF}
+::-webkit-scrollbar{width:8px}
+::-webkit-scrollbar-track{background:#F5F0E8}
+::-webkit-scrollbar-thumb{background:#C9A84C;border-radius:4px}
+:root{--red:#C41E3A;--red-dark:#8B0000;--gold:#C9A84C;--gold-light:#E8D48B;--ink:#1A1A2E;--paper:#F5F0E8;--paper-light:#FAF8F2;--shadow:0 4px 20px rgba(0,0,0,0.1);--shadow-lg:0 8px 40px rgba(0,0,0,0.15);--radius:12px;--transition:all 0.4s cubic-bezier(0.25,0.46,0.45,0.94)}
+.navbar{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(26,26,46,0.92);backdrop-filter:blur(12px);padding:0 2rem;display:flex;align-items:center;justify-content:space-between;height:70px;border-bottom:2px solid var(--gold);transition:var(--transition)}
+.navbar.scrolled{background:rgba(26,26,46,0.98)}
+.nav-brand{display:flex;align-items:center;gap:12px;font-family:'Noto Serif SC',serif;font-size:1.2rem;color:var(--gold)}
+.nav-brand i{font-size:1.6rem;color:var(--red)}
+.nav-links{display:flex;gap:0.5rem;list-style:none}
+.nav-links a{color:var(--paper-light);padding:0.5rem 1rem;border-radius:6px;font-size:0.88rem;transition:var(--transition)}
+.nav-links a:hover,.nav-links a.active{background:rgba(196,30,58,0.2);color:var(--gold-light)}
+.nav-toggle{display:none;color:var(--gold);font-size:1.5rem;cursor:pointer}
+
+/* HERO - FLAG AS BACKGROUND */
+.hero{position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden;background:linear-gradient(135deg,var(--ink) 0%,#2A1A1A 40%,var(--red-dark) 100%)}
+#inkCanvas{position:absolute;top:0;left:0;width:100%;height:100%;opacity:0.5}
+
+@keyframes flagWaveBg{0%,100%{transform:translate(-50%,-50%) perspective(600px) rotateY(-8deg) rotateX(4deg) scale(1.02)}25%{transform:translate(-50%,-50%) perspective(600px) rotateY(5deg) rotateX(-2deg) scale(1)}50%{transform:translate(-50%,-50%) perspective(600px) rotateY(-10deg) rotateX(5deg) scale(1.03)}75%{transform:translate(-50%,-50%) perspective(600px) rotateY(6deg) rotateX(-3deg) scale(1)}}
+.flag-bg svg{width:100%;height:auto}
+.hero-content{position:relative;z-index:10;text-align:center;max-width:900px;padding:2rem}
+.hero-badge{display:inline-block;padding:0.5rem 2rem;border:1px solid var(--gold);border-radius:50px;color:var(--gold-light);font-size:0.9rem;letter-spacing:0.3em;margin-bottom:2rem;background:rgba(0,0,0,0.3);backdrop-filter:blur(4px)}
+.hero h1{font-family:'Noto Serif SC',serif;font-size:clamp(2rem,5.5vw,4rem);font-weight:900;color:var(--white);text-shadow:0 4px 30px rgba(196,30,58,0.4);margin-bottom:1rem;line-height:1.3}
+.hero h1::after{content:'';display:block;width:120px;height:3px;background:linear-gradient(90deg,var(--gold),transparent);margin:1.2rem auto 0}
+.hero-subtitle{font-size:clamp(0.95rem,2vw,1.2rem);color:rgba(255,255,255,0.8);max-width:600px;margin:1.2rem auto 2rem;line-height:1.8}
+.hero-actions{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:0.5rem;padding:0.9rem 2.2rem;border-radius:50px;font-family:'Noto Sans SC',sans-serif;font-weight:600;font-size:1rem;cursor:pointer;transition:var(--transition);border:none}
+.btn-primary{background:linear-gradient(135deg,var(--red),var(--red-dark));color:var(--white);box-shadow:0 4px 15px rgba(196,30,58,0.4)}
+.btn-primary:hover{transform:translateY(-3px);box-shadow:0 8px 30px rgba(196,30,58,0.5)}
+.btn-outline{background:transparent;color:var(--gold-light);border:1.5px solid var(--gold)}
+.btn-outline:hover{background:rgba(201,168,76,0.15);transform:translateY(-3px)}
+.scroll-indicator{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);z-index:10;display:flex;flex-direction:column;align-items:center;gap:0.5rem;color:rgba(255,255,255,0.6);font-size:0.8rem;animation:scrollBounce 2s ease-in-out infinite}
+.scroll-indicator i{font-size:1.2rem}
+@keyframes scrollBounce{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(8px)}}
+
+.section{padding:6rem 2rem;max-width:1200px;margin:0 auto}
+.section-title{text-align:center;margin-bottom:4rem}
+.section-title h2{font-family:'Noto Serif SC',serif;font-size:clamp(1.8rem,4vw,2.8rem);color:var(--ink);display:inline-block}
+.section-title h2::after{content:'';display:block;width:80px;height:3px;background:linear-gradient(90deg,var(--red),var(--gold));margin:1rem auto 0}
+.section-title p{color:var(--ink-light);margin-top:1rem;font-size:1.05rem;max-width:600px;margin-left:auto;margin-right:auto}
+.intro-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center}
+.intro-text{font-size:1.02rem;color:var(--ink-light);line-height:2}
+.intro-text p{margin-bottom:1.2rem}
+.intro-text .highlight{color:var(--red);font-weight:700}
+.intro-stats{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
+.stat-card{background:var(--white);border-radius:var(--radius);padding:2rem;text-align:center;box-shadow:var(--shadow);border:1px solid rgba(201,168,76,0.2);transition:var(--transition)}
+.stat-card:hover{transform:translateY(-5px);box-shadow:var(--shadow-lg)}
+.stat-number{font-family:'Noto Serif SC',serif;font-size:2.5rem;font-weight:900;color:var(--red)}
+.stat-label{font-size:0.9rem;color:var(--ink-light);margin-top:0.3rem}
+
+/* MAP SECTION - Using electronic map image */
+.map-section{background:var(--white);padding:6rem 2rem}
+.map-container{max-width:1200px;margin:0 auto}
+.map-display{position:relative;border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow-lg);border:3px solid var(--gold);cursor:zoom-in;background:#1A1A2E}
+.map-display.zoomed{cursor:zoom-out}
+.map-display img{width:100%;height:auto;display:block;position:relative;left:0;top:0;transform-origin:0 0}.map-zooming{transition:none!important}
+.map-display.zoomed img{transform:scale(2);cursor:grab}
+.map-controls{display:flex;gap:0.5rem;justify-content:center;margin-top:1rem}
+.map-controls button{padding:0.5rem 1.2rem;border-radius:6px;border:1px solid var(--gold);background:var(--white);color:var(--ink);cursor:pointer;font-size:0.85rem;transition:var(--transition);font-family:'Noto Sans SC',sans-serif}
+.map-controls button:hover{background:var(--red);color:var(--white);border-color:var(--red)}
+.map-switch{display:flex;gap:0.5rem;justify-content:center;margin-bottom:1.5rem}
+.map-switch button{padding:0.6rem 1.5rem;border-radius:50px;border:1.5px solid var(--gold);background:transparent;color:var(--ink);cursor:pointer;font-size:0.9rem;transition:var(--transition);font-family:'Noto Sans SC',sans-serif}
+.map-switch button.active{background:linear-gradient(135deg,var(--red),var(--red-dark));color:var(--white);border-color:var(--red)}
+.map-switch button:hover:not(.active){background:rgba(201,168,76,0.1)}
+.map-legend{display:flex;gap:2rem;justify-content:center;margin:1rem 0 1.5rem;font-size:0.85rem;color:var(--ink-light)}
+.map-legend span{display:flex;align-items:center;gap:6px}
+.map-legend .dot{width:12px;height:12px;border-radius:50%;display:inline-block}
+.map-info{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:0.8rem;margin-top:2rem}
+.map-loc{padding:0.8rem 1.2rem;background:var(--paper-light);border-radius:8px;font-size:0.85rem;cursor:pointer;transition:var(--transition);border-left:3px solid var(--gold)}
+.map-loc:hover{background:rgba(196,30,58,0.08);border-left-color:var(--red);transform:translateX(5px)}
+.map-loc .loc-num{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:50%;background:var(--red);color:var(--white);font-size:0.75rem;font-weight:700;margin-right:0.5rem}
+.map-loc.core .loc-num{background:var(--red)}
+.map-loc.normal .loc-num{background:var(--gold);color:var(--ink)}
+
+.video-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:2rem}
+.video-card{background:var(--white);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);transition:var(--transition);border:1px solid rgba(201,168,76,0.15)}
+.video-card:hover{transform:translateY(-8px);box-shadow:var(--shadow-lg)}
+.video-wrapper{position:relative;width:100%;padding-top:56.25%;background:var(--ink)}
+.video-wrapper video,.video-wrapper .video-placeholder,.video-wrapper iframe{position:absolute;top:0;left:0;width:100%;height:100%}.video-wrapper iframe{border:none}
+.video-placeholder{display:flex;flex-direction:column;align-items:center;justify-content:center;background:linear-gradient(135deg,var(--ink),var(--red-dark));color:var(--white)}
+.video-placeholder i{font-size:3rem;margin-bottom:1rem;opacity:0.7}
+.video-placeholder span{font-size:0.9rem;opacity:0.7}
+.video-info{padding:1.5rem}
+.video-info h3{font-family:'Noto Serif SC',serif;color:var(--red);margin-bottom:0.5rem}
+.video-info p{font-size:0.9rem;color:var(--ink-light);line-height:1.7}
+.locations-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.5rem}
+.loc-card{background:var(--white);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);transition:var(--transition);cursor:pointer;border:1px solid rgba(201,168,76,0.1)}
+.loc-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-lg)}
+.loc-card-header{padding:1.2rem 1.5rem;background:linear-gradient(135deg,var(--paper),var(--white));border-bottom:2px solid var(--gold);display:flex;align-items:center;gap:0.8rem}
+.loc-card-header .num{width:32px;height:32px;border-radius:50%;background:var(--red);color:var(--white);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.85rem;flex-shrink:0}
+.loc-card-header .name{font-family:'Noto Serif SC',serif;font-weight:700;font-size:1rem;color:var(--ink)}
+.loc-card-body{padding:1.2rem 1.5rem;font-size:0.9rem;color:var(--ink-light);line-height:1.7;max-height:140px;overflow:hidden;position:relative}
+.loc-card-body::after{content:'';position:absolute;bottom:0;left:0;right:0;height:40px;background:linear-gradient(transparent,var(--white))}
+.gallery-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:1rem}
+.gallery-item{position:relative;border-radius:var(--radius);overflow:hidden;cursor:pointer;aspect-ratio:4/3;background:var(--ink-light);transition:var(--transition)}
+.gallery-item:hover{transform:scale(1.03);box-shadow:var(--shadow-lg)}
+.gallery-item img{width:100%;height:100%;object-fit:cover;transition:var(--transition)}
+.gallery-item .overlay{position:absolute;bottom:0;left:0;right:0;padding:2rem 1rem 1rem;background:linear-gradient(transparent,rgba(0,0,0,0.7));color:var(--white);font-size:0.85rem;opacity:0;transition:var(--transition)}
+.gallery-item:hover .overlay{opacity:1}
+.gallery-placeholder{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;background:linear-gradient(135deg,var(--paper),var(--paper-light));color:var(--ink-light);border:2px dashed rgba(201,168,76,0.3)}
+.gallery-placeholder i{font-size:2.5rem;margin-bottom:0.5rem;opacity:0.4}
+.gallery-placeholder span{font-size:0.85rem;opacity:0.5}
+.lightbox{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.92);z-index:2000;display:none;align-items:center;justify-content:center;padding:2rem}
+.lightbox.active{display:flex}
+.lightbox img{max-width:90vw;max-height:90vh;border-radius:4px;object-fit:contain}
+.lightbox-close{position:absolute;top:1.5rem;right:2rem;color:var(--white);font-size:2rem;cursor:pointer;opacity:0.7;transition:var(--transition)}
+.lightbox-close:hover{opacity:1}
+.outcomes-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1.5rem}
+.outcome-item{text-align:center;padding:2.5rem 1.5rem;background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);transition:var(--transition)}
+.outcome-item:hover{transform:translateY(-5px);box-shadow:var(--shadow-lg)}
+.outcome-icon{width:64px;height:64px;margin:0 auto 1rem;background:linear-gradient(135deg,var(--red),var(--red-dark));border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--white);font-size:1.5rem}
+.outcome-item h4{font-family:'Noto Serif SC',serif;color:var(--ink);margin-bottom:0.5rem}
+.outcome-item p{font-size:0.85rem;color:var(--ink-light)}
+.footer{background:var(--ink);color:rgba(255,255,255,0.7);padding:3rem 2rem;text-align:center;border-top:3px solid var(--gold)}
+.footer-brand{font-family:'Noto Serif SC',serif;font-size:1.5rem;color:var(--gold);margin-bottom:1rem}
+.footer p{font-size:0.85rem;line-height:1.8}
+.flag-canvas{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:90%;max-width:700px;height:auto;opacity:0.12;z-index:3;pointer-events:none}
+.fade-up{opacity:0;transform:translateY(40px);transition:opacity 0.8s ease,transform 0.8s ease}
+.fade-up.visible{opacity:1;transform:translateY(0)}
+@media(max-width:768px){
+.navbar{padding:0 1rem}
+.nav-links{position:fixed;top:70px;left:0;right:0;background:rgba(26,26,46,0.98);flex-direction:column;padding:1rem;display:none}
+.nav-links.open{display:flex}
+.nav-toggle{display:block}
+.hero{min-height:80vh}
+.intro-grid{grid-template-columns:1fr}
+.intro-stats{grid-template-columns:1fr 1fr}
+.section{padding:4rem 1.2rem}
+.video-grid{grid-template-columns:1fr}
+.map-section{padding:4rem 1.2rem}
+
+.map-legend{flex-direction:column;align-items:center;gap:0.5rem}
+}
+@media(max-width:480px){.hero h1{font-size:1.8rem}.intro-stats{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<nav class="navbar" id="navbar">
+  <div class="nav-brand"><i class="fas fa-fire"></i><span>越地红色根脉</span></div>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#hero" class="active">首页</a></li><li><a href="#intro">项目简介</a></li>
+    <li><a href="#map">红色导览图</a></li><li><a href="#videos">实景讲解</a></li>
+    <li><a href="#locations">十二点位</a></li><li><a href="#gallery">出征图集</a></li>
+  </ul>
+  <div class="nav-toggle" id="navToggle"><i class="fas fa-bars"></i></div>
+</nav>
+<section class="hero" id="hero">
+  <canvas id="inkCanvas"></canvas>
+  <!-- 国旗作为背景，半透明，自然飘扬 -->
+  <canvas id="flagCanvas" class="flag-canvas"></canvas>
+  <div class="hero-content">
+    <div class="hero-badge">绍兴 · 越地 · 2026</div>
+    <h1>寻越地红色根脉<br>传承庚戊红色薪火</h1>
+    <p class="hero-subtitle">以十二处红色文化点位为脉络，以数字化方式传承绍兴革命精神</p>
+    <div class="hero-actions">
+      <a href="#map" class="btn btn-primary"><i class="fas fa-map-marked-alt"></i> 探索红色地图</a>
+      <a href="#intro" class="btn btn-outline"><i class="fas fa-book-open"></i> 了解项目</a>
+    </div>
+  </div>
+  <div class="scroll-indicator"><span>向下探索</span><i class="fas fa-chevron-down"></i></div>
+</section>
+
+<section class="section" id="intro">
+  <div class="section-title fade-up">
+    <h2>项目简介</h2>
+    <p>绍兴红色文化数字化传播工程</p>
+  </div>
+  <div class="intro-grid">
+    <div class="intro-text fade-up">
+      <p>绍兴是全国首批历史文化名城，也是中国近代革命的重要发源地之一。从<span class="highlight">秋瑾、鲁迅</span>到<span class="highlight">周恩来</span>，从辛亥革命到抗日战争，再到中国共产党领导革命的伟大实践，绍兴保存着大量具有重要历史价值的红色文化资源。</p>
+      <p>本项目以<span class="highlight">「寻越地红色根脉，传承庚戊红色薪火」</span>为主题，系统梳理了绍兴市域<span class="highlight">十二处</span>具有代表性的红色历史点位，通过实地调研、视频拍摄、地图绘制与网站建设等方式，构建一个集文化展示、思政教育、数字传播于一体的综合性平台。</p>
+      <p>我们团队原创绘制了手绘版《绍兴市域浙东历史人文研学点位导览图》，并选取<span class="highlight">秋瑾故居、鲁迅故里、周恩来祖居</span>三处核心点位开展实地讲解拍摄，以青年视角讲述革命人物的成长经历与精神内涵。</p>
+    </div>
+    <div class="intro-stats fade-up">
+      <div class="stat-card"><div class="stat-number">12</div><div class="stat-label">红色点位</div></div>
+      <div class="stat-card"><div class="stat-number">4</div><div class="stat-label">部原创视频</div></div>
+      <div class="stat-card"><div class="stat-number">2</div><div class="stat-label">幅导览地图</div></div>
+      <div class="stat-card"><div class="stat-number">18+</div><div class="stat-label">张实地照片</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 地图部分：使用电子地图图片 -->
+<section class="map-section" id="map">
+  <div class="map-container">
+    <div class="section-title fade-up">
+      <h2>越地红色导览图</h2>
+      <p>点击地图可放大查看 · 切换查看手绘版</p>
+    </div>
+    <div class="map-switch fade-up">
+      <button class="active" data-map="电子地图">电子导览图</button>
+      <button data-map="手绘地图">手绘原图</button>
+    </div>
+    <div class="map-legend fade-up">
+      <span><span class="dot" style="background:#C41E3A"></span> 核心讲解点（3处）</span>
+      <span><span class="dot" style="background:#C9A84C"></span> 人文纪念点（9处）</span>
+    </div>
+    <div class="map-display" id="mapDisplay">
+      <img id="mapImage" src="assets/maps/电子地图.png" alt="绍兴红色研学导览图">
+    </div>
+    <div class="map-controls">
+      <button onclick="zoomMapIn()"><i class="fas fa-search-plus"></i> 放大</button>
+      <button onclick="zoomMapOut()"><i class="fas fa-search-minus"></i> 缩小</button>
+      <button onclick="resetMap()"><i class="fas fa-expand"></i> 还原</button>
+    </div>
+    <div class="map-info" id="mapInfo"></div>
+  </div>
+</section>
+
+<section class="section" id="videos">
+  <div class="section-title fade-up">
+    <h2>核心实景讲解</h2>
+    <p>三处重点红色教育基地 · 青年视角讲述</p>
+  </div>
+  <div class="video-grid">
+    <div class="video-card fade-up">
+      <div class="video-wrapper">
+        <iframe src="https://player.bilibili.com/player.html?bvid=BV1QnJ76nELU&autoplay=0" frameborder="0" allowfullscreen="true" style="position:absolute;top:0;left:0;width:100%;height:100%;border:none;"></iframe>
+      </div>
+      <div class="video-info"><h3>鲁迅故里</h3><p>走近鲁迅的一生，感受他为民族觉醒而奋斗的精神历程。从百草园到三味书屋，从弃医从文到以笔为枪。</p></div>
+    </div>
+    <div class="video-card fade-up">
+      <div class="video-wrapper">
+        <iframe src="https://player.bilibili.com/player.html?bvid=BV14NEk6yERk&autoplay=0" frameborder="0" allowfullscreen="true" style="position:absolute;top:0;left:0;width:100%;height:100%;border:none;"></iframe>
+      </div>
+      <div class="video-info"><h3>秋瑾故居</h3><p>"休言女子非英物，夜夜龙泉壁上鸣。" 走进鉴湖女侠的革命人生，感受一位杰出女性的伟大选择。</p></div>
+    </div>
+    <div class="video-card fade-up">
+      <div class="video-wrapper">
+        <iframe src="https://player.bilibili.com/player.html?bvid=BV1DHJ76SEzz&autoplay=0" frameborder="0" allowfullscreen="true" style="position:absolute;top:0;left:0;width:100%;height:100%;border:none;"></iframe>
+      </div>
+      <div class="video-info"><h3>周恩来祖居</h3><p>"为中华之崛起而读书"——从绍兴祖居走出的人民总理，一生践行初心，将个人理想融入民族复兴伟业。</p></div>
+    </div>
+    <div class="video-card fade-up">
+      <div class="video-wrapper">
+        <iframe src="https://player.bilibili.com/player.html?bvid=BV1NCN96GECv&autoplay=0" frameborder="0" allowfullscreen="true" style="position:absolute;top:0;left:0;width:100%;height:100%;border:none;"></iframe>
+      </div>
+      <div class="video-info"><h3>实践花絮</h3><p>走进增太和实践团队的背后，看看年轻人是怎样用脚步去参与赤色当代的传承与当代。</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="locations">
+  <div class="section-title fade-up"><h2>十二处红色点位</h2><p>从越城到诸暨 · 从新昌到上虞 · 串联绍兴红色脉络</p></div>
+  <div class="locations-grid" id="locationsGrid"></div>
+</section>
+
+<section class="section" id="gallery">
+  <div class="section-title fade-up"><h2>出征图集</h2><p>实地调研 · 青年脚步丈量红色土地</p></div>
+  <div class="gallery-grid" id="galleryGrid"></div>
+</section>
+
+<section class="section" id="outcomes">
+  <div class="section-title fade-up"><h2>项目成果</h2><p>从历史梳理到数字传播的完整闭环</p></div>
+  <div class="outcomes-grid">
+    <div class="outcome-item fade-up"><div class="outcome-icon"><i class="fas fa-scroll"></i></div><h4>红色文化调研</h4><p>系统整理绍兴十二处红色历史点位资料与人物研究</p></div>
+    <div class="outcome-item fade-up"><div class="outcome-icon"><i class="fas fa-map"></i></div><h4>原创导览地图</h4><p>手绘版与数字版《绍兴浙东历史人文研学导览图》</p></div>
+    <div class="outcome-item fade-up"><div class="outcome-icon"><i class="fas fa-video"></i></div><h4>视频成果</h4><p>三部实景讲解视频 + 实践花絮，青年视角讲述</p></div>
+    <div class="outcome-item fade-up"><div class="outcome-icon"><i class="fas fa-globe"></i></div><h4>数字平台</h4><p>红色文化展示网站，图文视频交互一体化呈现</p></div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-brand">寻越地红色根脉 · 传承庚戊红色薪火</div>
+  <p>绍兴红色文化数字化传播项目 · 2026</p>
+  <p style="font-size:0.8rem;margin-top:0.5rem;opacity:0.6;">浙江大学马克思主义学院 · 暑期社会实践团队</p>
+</footer>
+
+<div class="lightbox" id="lightbox"><span class="lightbox-close" id="lightboxClose">&times;</span><img id="lightboxImg" src="" alt=""></div>
+
+<script>
+const LOCATIONS = [
+  {id:1,name:'越城区老城区',sub:'大通学堂 · 秋瑾故居 · 轩亭口',type:'core',desc:'1907年光复会革命纪念集群。大通学堂为光复会秘密军事训练基地，秋瑾在此主持并英勇就义于轩亭口。'},
+  {id:2,name:'鲁迅故里',sub:'越城区 · 鲁迅纪念馆 · 三味书屋 · 百草园',type:'core',desc:'鲁迅少年时期生活成长地。完整保留周家祖宅、百草园、三味书屋，5A级景区，是课本实景研学的核心场所。'},
+  {id:3,name:'俞秀松故居',sub:'诸暨市次坞镇 · 溪埭村',type:'normal',desc:'中国共产党、中国社会主义青年团核心先驱俞秀松出生地。上海共产主义小组创建参与者，首任社会主义青年团书记。'},
+  {id:4,name:'中共绍兴独立支部纪念馆',sub:'柯桥区 · 府山仓颉祠',type:'normal',desc:'绍兴地区第一个中共党支部诞生地。1923年7月成立，直属上海地方兼区执行委员会，创办《觉悟》半月刊。'},
+  {id:5,name:'梁柏台故居',sub:'新昌县',type:'normal',desc:'红色法律专家，中华苏维埃共和国宪法大纲起草执笔人。主持制定十余部法律法规，奠定红色法制体系雏形。'},
+  {id:6,name:'周恩来祖居（百岁堂）',sub:'越城区',type:'core',desc:'周恩来祖籍所在地。1939年周恩来在此停留四天三夜，祭祖省亲、宣传抗日民族统一战线，极大鼓舞浙东民众抗战信心。'},
+  {id:7,name:'后堡抗日纪念堂',sub:'越城区',type:'normal',desc:'浙东抗日纪念设施，铭记后堡地区军民抗战历史。'},
+  {id:8,name:'美人弄1号秘密情报站',sub:'上虞区小越街道 · 新宅村',type:'normal',desc:'抗战时期以卷烟厂为掩护的地下情报站，八位女共产党员以青春和热血在隐蔽战线谱写巾帼篇章。'},
+  {id:9,name:'许岙战斗纪念馆',sub:'上虞区岭南乡 · 许岙村',type:'normal',desc:'1945年许岙攻坚战——浙东游击纵队投入兵力最多、战果最辉煌的攻坚战。14昼夜攻克28座碉堡，歼敌千余人。'},
+  {id:10,name:'浙东新四军后勤基地',sub:'上虞区陈溪乡',type:'normal',desc:'虞南地区第一个中共党支部诞生地。新四军浙东纵队"九厂两院"后勤保障基地，军民并肩战斗的光辉见证。'},
+  {id:11,name:'观杰烈士事迹陈列馆',sub:'上虞区章镇',type:'normal',desc:'观杰烈士（1921-1944），新四军浙东游击纵队二级人民英雄。"观杰中队"荣誉称号获得者，23岁壮烈牺牲。'},
+  {id:12,name:'浙东人民解放军金萧支队纪念馆',sub:'诸暨 · 桐庐',type:'normal',desc:'浙东敌后坚持12年游击斗争的核心人民武装。抗战金萧支队+解放战争金萧支队，横跨金华—萧山铁路沿线。'}
+];
+var mapScale = 1; var currentMap = '电子地图'; var mapPanX = 0; var mapPanY = 0; var isDragging = false; var dragStartX, dragStartY, dragImgX, dragImgY;
+
+function zoomMapIn(){var img=document.getElementById("mapImage");img.classList.add("map-zooming");mapScale=Math.min(mapScale+0.3,4);updateMapZoom();img.classList.remove("map-zooming")}
+function zoomMapOut(){var img=document.getElementById("mapImage");img.classList.add("map-zooming");mapScale=Math.max(mapScale-0.3,0.5);updateMapZoom();img.classList.remove("map-zooming")}
+function resetMap(){mapScale=1;mapPanX=0;mapPanY=0;var img=document.getElementById("mapImage");img.style.transform="scale(1)";img.style.left="0";img.style.top="0";img.style.cursor="zoom-in";document.getElementById("mapDisplay").classList.remove("zoomed")}
+function updateMapZoom(){var img=document.getElementById("mapImage");var disp=document.getElementById("mapDisplay");img.style.transform="translate("+mapPanX+"px,"+mapPanY+"px) scale("+mapScale+")";disp.classList.toggle("zoomed",mapScale>1);img.style.cursor=mapScale>1?"grab":"zoom-in"}
+var mapDisplay=document.getElementById("mapDisplay");
+mapDisplay.addEventListener("wheel",function(e){e.preventDefault();var img=document.getElementById("mapImage");img.classList.add("map-zooming");var delta=e.deltaY<0?0.15:-0.15;var newScale=Math.max(0.5,Math.min(4,mapScale+delta));if(newScale!==mapScale){var rect=mapDisplay.getBoundingClientRect();var mx=e.clientX-rect.left;var my=e.clientY-rect.top;mapPanX=mx-(mx-mapPanX)*newScale/mapScale;mapPanY=my-(my-mapPanY)*newScale/mapScale;mapScale=newScale;updateMapZoom()}img.classList.remove("map-zooming")},{passive:false});
+mapDisplay.addEventListener("mousedown",function(e){if(mapScale>1){isDragging=true;dragStartX=e.clientX;dragStartY=e.clientY;dragImgX=mapPanX;dragImgY=mapPanY;var img=document.getElementById("mapImage");img.style.cursor="grabbing";e.preventDefault()}});
+document.addEventListener("mousemove",function(e){if(!isDragging)return;e.preventDefault();mapPanX=dragImgX+(e.clientX-dragStartX);mapPanY=dragImgY+(e.clientY-dragStartY);updateMapZoom()});
+document.addEventListener("mouseup",function(){if(isDragging){isDragging=false;var img=document.getElementById("mapImage");img.style.cursor=mapScale>1?"grab":"zoom-in"}});
+
+// Map switch
+document.querySelectorAll('.map-switch button').forEach(btn=>{
+  btn.addEventListener('click',function(){
+    document.querySelectorAll('.map-switch button').forEach(b=>b.classList.remove('active'));
+    this.classList.add('active');
+    currentMap = this.dataset.map;
+    const name = currentMap === '电子地图' ? '电子地图.png' : '手绘地图.jpg';
+    document.getElementById('mapImage').src = 'assets/maps/'+name;
+    resetMap();
+  });
+});
+
+function renderLocations() {
+  const grid = document.getElementById('locationsGrid');
+  LOCATIONS.forEach(loc=>{
+    const card = document.createElement('div');
+    card.className='loc-card fade-up';
+    card.innerHTML='<div class="loc-card-header"><span class="num">'+loc.id+'</span><span class="name">'+loc.name+'</span>'+(loc.type==='core'?'<i class="fas fa-star" style="color:var(--gold);font-size:0.75rem;margin-left:auto;"></i>':'')+'</div><div class="loc-card-body"><strong style="color:#3A3A4A;font-weight:600;">'+loc.sub+'</strong><br>'+loc.desc+'</div>';
+    card.addEventListener('click',function(){window.location.href='details/detail.html?id='+loc.id});
+    grid.appendChild(card);
+  });
+}
+
+function renderMapInfo(){
+  const div=document.getElementById('mapInfo');
+  LOCATIONS.forEach(loc=>{
+    const d=document.createElement('div');
+    d.className='map-loc '+(loc.type==='core'?'core':'normal');
+    d.innerHTML='<span class="loc-num">'+loc.id+'</span> '+loc.name+' · '+loc.sub.split('·')[0].trim();
+    div.appendChild(d);
+  });
+}
+
+function renderGallery() {
+  const grid = document.getElementById('galleryGrid');
+  const photos = ['0aa5e6d1163c3324fc2281bd99fdceb2.jpg','0ef908b4293d34ec23e1fe0abd2a2356.jpg','1b7a05ad3b82859579815ab8fb071fc7.jpg','21c24242761e37e1acd0ad043f19ae07.jpg','41f989cf85f833ba3971e30b1d26cd2c.jpg','5af5571defa03e4b8ceebafbe721e78d.jpg','5d2d10ca4dbc0284fb7af469aeac3233.jpg','62a7498cbda155fda13621394be17543.jpg','763fb8626e34b70b8397e2f13dff96e5.jpg','769e89aee93a91bd70deb2e11145b50f.jpg','83bbd67213913d6892245ed9be66e51e.jpg','9826d97c9d1b23d4efb999d730d0a042.jpg','b3a56a7da295ac5a814686763a9f7fad.jpg','bcd2802070bfb01ab5dc1e658df23b65.jpg','f1c6c644d3c6029978241c769a660cf3.jpg'];
+  photos.forEach(function(name){
+    const item = document.createElement('div');item.className='gallery-item fade-up';const path='assets/photos/'+name;
+    item.innerHTML='<img src="'+path+'" alt="实地照片" loading="lazy"><div class="overlay"><i class="fas fa-camera" style="margin-right:4px;"></i>实地拍摄 · 红色足迹</div>';
+    item.addEventListener('click',function(){openLightbox(path)});grid.appendChild(item);
+  });
+}
+
+function openLightbox(s){var lb=document.getElementById('lightbox');document.getElementById('lightboxImg').src=s;lb.classList.add('active')}
+document.getElementById('lightboxClose').addEventListener('click',function(){document.getElementById('lightbox').classList.remove('active')});
+document.getElementById('lightbox').addEventListener('click',function(e){if(e.target===e.currentTarget)document.getElementById('lightbox').classList.remove('active')});
+
+function initInkCanvas() {
+  var c=document.getElementById('inkCanvas');if(!c)return;
+  var ctx=c.getContext('2d'),w,h,ps=[];
+  function rs(){w=c.width=c.parentElement.offsetWidth;h=c.height=c.parentElement.offsetHeight}
+  rs();window.addEventListener('resize',rs);
+  for(var i=0;i<25;i++)ps.push({x:Math.random()*w,y:Math.random()*h,size:Math.random()*35+8,sx:(Math.random()-0.5)*0.3,sy:(Math.random()-0.5)*0.3-0.1,op:Math.random()*0.25+0.05,life:Math.random()*200+100});
+  ps.forEach(function(p){p.mx=p.life});
+  function an(){
+    ctx.clearRect(0,0,w,h);
+    ps.forEach(function(p){
+      p.x+=p.sx;p.y+=p.sy;p.life--;p.op*=0.998;
+      if(p.life<=0||p.x<-50||p.x>w+50||p.y<-50||p.y>h+50){p.x=Math.random()*w;p.y=Math.random()*h;p.life=p.mx;p.op=Math.random()*0.25+0.05}
+      ctx.save();ctx.globalAlpha=p.op*(p.life/p.mx);
+      var g=ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,p.size);
+      g.addColorStop(0,'rgba(30,30,50,0.5)');g.addColorStop(0.5,'rgba(30,30,50,0.2)');g.addColorStop(1,'rgba(30,30,50,0)');
+      ctx.fillStyle=g;ctx.beginPath();ctx.arc(p.x,p.y,p.size,0,Math.PI*2);ctx.fill();
+      ctx.restore();
+    });
+    requestAnimationFrame(an);
+  }
+  an();
+}
+
+function initScrollAnimations() {
+  var obs=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting)e.target.classList.add('visible')})},{threshold:0.1});
+  document.querySelectorAll('.fade-up').forEach(function(el){obs.observe(el)});
+}
+
+function initNav() {
+  var t=document.getElementById('navToggle'),l=document.getElementById('navLinks');
+  if(t)t.addEventListener('click',function(){l.classList.toggle('open')});
+  l.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){l.classList.remove('open')})});
+  window.addEventListener('scroll',function(){
+    var nav=document.getElementById('navbar');nav.classList.toggle('scrolled',window.scrollY>100);
+    var cur='hero';
+    document.querySelectorAll('section[id]').forEach(function(s){if(window.scrollY>=s.offsetTop-200)cur=s.id});
+    l.querySelectorAll('a').forEach(function(a){a.classList.toggle('active',a.getAttribute('href')==='#'+cur)});
+  });
+}
+
+function initVideos(){}
+
+document.addEventListener('DOMContentLoaded',function(){
+  initNav();initInkCanvas();renderLocations();renderMapInfo();renderGallery();initScrollAnimations();initVideos();document.querySelectorAll('.map-loc').forEach(function(e,i){e.addEventListener('click',function(){window.location.href='details/detail.html?id='+(i+1)})});
+});
+</script>
+<script src="assets/js/flag.js"></script>
+</body>
+</html>
+
+
+
+
+
+
