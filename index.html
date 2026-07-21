@@ -210,7 +210,7 @@ img{max-width:100%;height:auto;display:block}
       <span><span class="dot" style="background:#C9A84C"></span> 人文纪念点（9处）</span>
     </div>
     <div class="map-display" id="mapDisplay">
-      <img id="mapImage" src="assets/maps/电子地图.png" alt="绍兴红色研学导览图">
+      <img id="mapImage" src="assets/maps/电子地图.jpg" alt="绍兴红色研学导览图">
     </div>
     <div class="map-controls">
       <button onclick="zoomMapIn()"><i class="fas fa-search-plus"></i> 放大</button>
@@ -315,7 +315,7 @@ document.querySelectorAll('.map-switch button').forEach(btn=>{
     document.querySelectorAll('.map-switch button').forEach(b=>b.classList.remove('active'));
     this.classList.add('active');
     currentMap = this.dataset.map;
-    const name = currentMap === '电子地图' ? '电子地图.png' : '手绘地图.jpg';
+    const name = currentMap === '电子地图' ? '电子地图.jpg' : '手绘地图.jpg';
     document.getElementById('mapImage').src = 'assets/maps/'+name;
     resetMap();
   });
